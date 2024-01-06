@@ -21,11 +21,25 @@ body{
     border-radius: 20px;
 }
 
-input{
-    width: 308px;
+#display-field{
+    width: 309px;
     height: 80px;
     border-radius: 10px;
     border: none;
+    background-color: white;
+    padding: 5px 10px;
+    box-shadow: 5px 0 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+
+#previous-operation{
+    font-size: 30px;
+}
+
+#current-operation{
+    font-size: 45px;
 }
 
 .cal-buttons{

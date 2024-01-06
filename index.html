@@ -8,39 +8,39 @@
   </head>
   <body>
     <div class="main-container">
-      <div class="display-field">
-        <div class="oouput-field"></div>
-        <input type="text" id="input-field" />
+      <div id="display-field">
+        <div id="previous-operation"></div>
+        <div id="current-operation"></div>
       </div>
       <div class="cal-buttons">
         <div class="first-row">
-          <button class="buttons red" id="buttonPress" value="del">AC</button>
-          <button class="buttons red" id="buttonPress" value="delAll">C</button>
-          <button class="buttons blue" id="buttonPress" value="mod">%</button>
-          <button class="buttons blue" id="buttonPress" value="div">/</button>
+          <button class="buttons red" value="del" id="delete-digit">AC</button>
+          <button class="buttons red" value="delAll" id="delete-all">C</button>
+          <button class="buttons blue" value="mod" id="op">%</button>
+          <button class="buttons blue" value="div" id="op">/</button>
         </div>
         <div class="second-row">
-          <button class="buttons grey" id="buttonPress" value="seven">7</button>
-          <button class="buttons grey" id="buttonPress" value="eight">8</button>
-          <button class="buttons grey" id="buttonPress" value="nine">9</button>
-          <button class="buttons blue" id="buttonPress" value="add">+</button>
+          <button class="buttons grey" value="seven" id="num">7</button>
+          <button class="buttons grey" value="eight" id="num">8</button>
+          <button class="buttons grey" value="nine" id="num">9</button>
+          <button class="buttons blue" value="add" id="op">+</button>
         </div>
         <div class="third-row">
-          <button class="buttons grey" id="buttonPress" value="four">4</button>
-          <button class="buttons grey" id="buttonPress" value="five">5</button>
-          <button class="buttons grey" id="buttonPress" value="six">6</button>
-          <button class="buttons blue" id="buttonPress" value="sub">-</button>
+          <button class="buttons grey" value="four" id="num">4</button>
+          <button class="buttons grey" value="five" id="num">5</button>
+          <button class="buttons grey" value="six" id="num">6</button>
+          <button class="buttons blue" value="sub" id="op">-</button>
         </div>
         <div class="fouth-row">
-          <button class="buttons grey" id="buttonPress" value="one">1</button>
-          <button class="buttons grey" id="buttonPress" value="two">2</button>
-          <button class="buttons grey" id="buttonPress" value="three">3</button>
-          <button class="buttons blue" id="buttonPress" value="mul">x</button>
+          <button class="buttons grey" value="one" id="num">1</button>
+          <button class="buttons grey" value="two" id="num">2</button>
+          <button class="buttons grey" value="three" id="num">3</button>
+          <button class="buttons blue" value="mul" id="op">x</button>
         </div>
         <div class="fifth-row">
-          <button class="buttons grey" id="buttonPress" value="zero">0</button>
-          <button class="buttons grey" id="buttonPress" value="dpt">.</button>
-          <button class="buttons green" id="long-button" value="equal">=</button>
+          <button class="buttons grey" value="zero" id="num">0</button>
+          <button class="buttons grey" value="dpt" id="num">.</button>
+          <button class="buttons green" value="equal" id="long-button">=</button>
         </div>
       </div>
     </div>
