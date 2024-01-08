@@ -43,30 +43,76 @@ operationsButton.forEach((opra) => {
 
 //EQUAL BUTTON OPERATION 
 equal.addEventListener('click', () => {
-    // Check if both operands are available
+    //Check if both operands are available
     if (firstOperant !== null && currentNumberString.trim() !== '') {
         secondOperant = parseFloat(currentNumberString);
-        
-        // Perform addition
-        let result = add(firstOperant, secondOperant);
 
-        // Display the result
-        displayResult(result);
-
-        // Update variables for the next operation
-        firstOperant = result;
-        currentNumberString = '';
+        perfomOperations();
     }
 });
 
+//PERFORM OPERATIONS
+function perfomOperations(){
+    if(previousNumberString.includes('+')){
+        let result = add(firstOperant, secondOperant);
+        update(result);
+    }
+    else if (previousNumberString.includes('-')){
+        let result = subs(firstOperant, secondOperant);
+        let rounded = result.toString().replace(/(\.\d*?[1-9])0+$/g, '$1');
+        update(rounded);
+    }
+    else if (previousNumberString.includes('x')){
+        let result = mul(firstOperant, secondOperant);
+        let rounded = result.toString().replace(/(\.\d*?[1-9])0+$/g, '$1');
+        update(rounded);
+    }
+    else if (previousNumberString.includes('/')){
+        let result = div(firstOperant, secondOperant);
+        let rounded = result.toString().replace(/(\.\d*?[1-9])0+$/g, '$1');
+        update(rounded);
+    }
+    else if (previousNumberString.includes('%')){
+        let result = mod(firstOperant, secondOperant);
+        let rounded = result.toString().replace(/(\.\d*?[1-9])0+$/g, '$1');
+        update(rounded);
+    }
+}
+
+//DELETE A SINGLE DIGIT
+deleteOneDigit.addEventListener('click', () => {
+    currentNumberString = currentNumberString.slice(0, -1);
+    previousNumberString = previousNumberString.slice(0, -1);
+    displayNumber(previousNumberString);
+});
+
+//DELETE ALL
+deleteAll.addEventListener('click', () => {
+    currentNumberString = '';
+    previousNumberString = '';
+    displayNumber(previousNumberString);
+});
+
+//UPDATE
+function update(result){
+    // Display the result
+    displayResult(result);
+
+    // Update variables for the next operation
+    firstOperant = result;
+    currentNumberString = '';
+}
+
 // ADD NUMBERS
 function add(a, b) {
-    return a + b;
+    let result = (a + b).toFixed(7);
+    return parseFloat(result);
 }
 
 //SUBTRACT  
 function subs(a,b){
-    return a-b;
+    let result = (a - b).toFixed(7);
+    return parseFloat(result);
 }
 
 //MULITPLY
@@ -75,7 +121,8 @@ function mul(a,b){
         return 0;
     }
     else{
-        return a*b;
+        let result = (a * b).toFixed(7);
+        return parseFloat(result);
     }
 }
 
@@ -87,7 +134,8 @@ function div(a,b){
         return 0;
     }
     else{
-        return a/b;
+        let result = (a / b).toFixed(7);
+        return parseFloat(result);
     }
 }
 
@@ -99,10 +147,11 @@ function mod(a,b){
         return 0;
     }
     else {
-        return a%b;
+        let result = (a % b).toFixed(7);
+        return parseFloat(result);
     }
 }
-
+ 
 
 
 
