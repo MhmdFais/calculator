@@ -7,90 +7,97 @@ let numbersOnCal = document.querySelectorAll('#num');
 let currentOperationDisply = document.querySelector('#current-operation');
 let previousOperationDisplay = document.querySelector('#previous-operation');
 
-let currentNumberString = '';
-let previousNumberString = '';
-let firstOperant = null;
-let secondOperant = null;
+let currentOperant = '';
+let previousOperant = '';
+let operation = undefined;
 
 //PRESSED NUMBERS 
 numbersOnCal.forEach((digit) => {
     digit.addEventListener('click', (event) =>{
-        currentNumberString += event.target.innerHTML;
-        previousNumberString += event.target.innerHTML;
-        displayNumber(previousNumberString);
+        if(event.target.innerHTML === '.' && currentOperant.includes('.')){
+            return;
+        }
+        currentOperant += event.target.innerHTML;
+        display();
     });
 });
 
-//DISPLAY THE SELECTED NUMBERS 
-function displayNumber(number){
-    previousOperationDisplay.textContent = number;
-}
-
-//DISPLAY THE RESULT
-function displayResult(result){
-    currentOperationDisply.textContent = result;
+//DISPLAY NUMBERS AND OPERATIONS
+function display(){
+    currentOperationDisply.textContent = currentOperant;
+    if(operation != null){
+        previousOperationDisplay.textContent = `${previousOperant} ${operation}`;
+    }
+    //previousOperationDisplay.textContent = previousOperant;
 }
 
 //AN OPERATION IS PRESSED
 operationsButton.forEach((opra) => {
-    opra.addEventListener('click', () => {
-        firstOperant = parseFloat(currentNumberString);
-        previousNumberString += (' '+opra.innerHTML+' ');
-        displayNumber(previousNumberString);
-        currentNumberString = '';
+    opra.addEventListener('click', (val) => {
+        if(currentOperant === '') return;
+        if(previousOperant !== ''){
+            perfomOperations();
+        }
+        operation = val.target.innerHTML;
+        console.log(operation);
+        previousOperant = currentOperant;
+        currentOperant = '';
+        display();
     })
 });
 
 //EQUAL BUTTON OPERATION 
 equal.addEventListener('click', () => {
     //Check if both operands are available
-    if (firstOperant !== null && currentNumberString.trim() !== '') {
-        secondOperant = parseFloat(currentNumberString);
-
-        perfomOperations();
-    }
+    perfomOperations();
+    display();
 });
 
 //PERFORM OPERATIONS
 function perfomOperations(){
-    if(previousNumberString.includes('+')){
-        let result = add(firstOperant, secondOperant);
-        update(result);
+    let compute;
+    const prev = parseFloat(previousOperant);
+    const current = parseFloat(currentOperant);
+    if (isNaN(prev) || isNaN(current)) return;
+    switch(operation){
+        case '+':
+            compute = add(prev, current).toString().replace(/(\.\d*?[1-9])0+$/g, '$1');
+            break;
+        case '-':
+            compute = subs(prev, current).toString().replace(/(\.\d*?[1-9])0+$/g, '$1');
+            break;
+        case '*':
+            compute = mul(prev, current).toString().replace(/(\.\d*?[1-9])0+$/g, '$1');
+            break;
+        case '/':
+            compute = div(prev, current).toString().replace(/(\.\d*?[1-9])0+$/g, '$1');
+            break;
+        case '%':
+            compute = mod(prev, current).toString().replace(/(\.\d*?[1-9])0+$/g, '$1');
+            break;
+        default:
+            return;
     }
-    else if (previousNumberString.includes('-')){
-        let result = subs(firstOperant, secondOperant);
-        let rounded = result.toString().replace(/(\.\d*?[1-9])0+$/g, '$1');
-        update(rounded);
-    }
-    else if (previousNumberString.includes('x')){
-        let result = mul(firstOperant, secondOperant);
-        let rounded = result.toString().replace(/(\.\d*?[1-9])0+$/g, '$1');
-        update(rounded);
-    }
-    else if (previousNumberString.includes('/')){
-        let result = div(firstOperant, secondOperant);
-        let rounded = result.toString().replace(/(\.\d*?[1-9])0+$/g, '$1');
-        update(rounded);
-    }
-    else if (previousNumberString.includes('%')){
-        let result = mod(firstOperant, secondOperant);
-        let rounded = result.toString().replace(/(\.\d*?[1-9])0+$/g, '$1');
-        update(rounded);
-    }
+    currentOperant = compute;
+    operation = undefined;
+    previousOperant = '';
+    display();
 }
 
 //DELETE A SINGLE DIGIT
 deleteOneDigit.addEventListener('click', () => {
-    currentNumberString = currentNumberString.slice(0, -1);
-    previousNumberString = previousNumberString.slice(0, -1);
-    displayNumber(previousNumberString);
+    currentOperant = currentOperant.toString().slice(0, -1);
+    display();
 });
 
 //DELETE ALL
 deleteAll.addEventListener('click', () => {
-    currentNumberString = '';
-    previousNumberString = '';
-    displayNumber(previousNumberString);
+    //Reset variables
+    currentOperant = '';
+    previousOperant = '';
+    operation = undefined;
+    currentOperationDisply.textContent = ''; // Clear the current display
+    previousOperationDisplay.textContent = ''; // Clear the previous display
 });
 
 //UPDATE
@@ -105,7 +112,7 @@ function update(result){
 
 // ADD NUMBERS
 function add(a, b) {
-    let result = (a + b).toFixed(7);
+    let result = (a + b);
     return parseFloat(result);
 }
 
