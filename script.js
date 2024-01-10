@@ -66,7 +66,7 @@ function perfomOperations(){
         case '-':
             compute = subs(prev, current).toString().replace(/(\.\d*?[1-9])0+$/g, '$1');
             break;
-        case '*':
+        case 'x':
             compute = mul(prev, current).toString().replace(/(\.\d*?[1-9])0+$/g, '$1');
             break;
         case '/':
@@ -112,7 +112,7 @@ function update(result){
 
 // ADD NUMBERS
 function add(a, b) {
-    let result = (a + b);
+    let result = (a + b).toFixed(7);
     return parseFloat(result);
 }
 

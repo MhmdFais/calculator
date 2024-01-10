@@ -10,6 +10,7 @@ body{
     height: 100vh;
     padding: 0;
     margin: 0;
+    flex-direction: column;
 }
 
 .main-container{
@@ -94,3 +95,17 @@ button{
     height: 74px;
     width: 74px;
 }
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 97%;
+    padding: 10px;
+    font-size: 20px;
+}
+  
